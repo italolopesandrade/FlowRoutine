@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlowRoutine Sync</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header-top">
+            <div class="theme-section">
+                <span id="theme-text" class="theme-title">Theme Light</span>
+                <div id="theme-toggle" onclick="toggleTheme()">
+                    <div id="toggle-ball" class="toggle-right">
+                        <span id="toggle-icon">☀️</span>
+                    </div>
+                </div>
+            </div>
+            <h1>FlowRoutine</h1>
+            <button class="btn-undo" style="width: auto; padding: 10px 20px;" onclick="window.location.href='historico.html'">📜 Histórico</button>
+        </div>
+        
+        <div id="habits-list"></div>
+
+        <div class="add-form" id="anchor-form">
+            <h3 id="form-title">Novo Hábito</h3>
+            <input type="hidden" id="edit-index" value="">
+            <label>Nome:</label>
+            <input type="text" id="h-name">
+            <label>Minutos para o próximo:</label>
+            <input type="number" id="h-min">
+            <label>Horário sugerido:</label>
+            <input type="time" id="h-time">
+            <div id="position-section">
+                <label>Posição:</label>
+                <select id="h-position"></select>
+            </div>
+            <div id="edit-done-section" class="hidden">
+                <label>Horário concluído:</label>
+                <input type="time" id="h-done-time">
+            </div>
+            <button class="btn-done" id="btn-save" onclick="handleSave()" style="margin-top: 15px; padding: 15px;">Salvar</button>
+            <button class="btn-delete hidden" id="btn-cancel" onclick="clearForm()">Cancelar</button>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
