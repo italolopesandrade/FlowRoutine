@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Histórico - FlowRoutine</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .history-day { background: #fff; margin-bottom: 20px; border-radius: 8px; overflow: hidden; border: 1px solid #ddd; }
+        .history-date { background: #2e7d32; color: white; padding: 10px; font-weight: bold; }
+        .history-item { padding: 8px 15px; border-bottom: 1px solid #eee; font-size: 0.9em; display: flex; justify-content: space-between; }
+        .history-item:last-child { border: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h1>Histórico</h1>
+            <button class="btn-undo" onclick="window.location.href='index.html'">⬅ Voltar</button>
+        </div>
+        
+        <div id="history-container"></div>
+        
+        <button class="btn-delete" onclick="clearHistory()" style="width: 100%; margin-top: 20px;">Limpar Todo Histórico</button>
+    </div>
+
+    <script>
+        const logs = JSON.parse(localStorage.getItem('habits_logs')) || [];
+        const container = document.getElementById('history-container');
+
+        if (logs.length === 0) {
+            container.innerHTML = '<p style="text-align:center; color:#666;">Nenhum histórico salvo ainda.</p>';
+        }
+
+        logs.slice().reverse().forEach(day => {
+            const dayDiv = document.createElement('div');
+            dayDiv.className = 'history-day';
+            
+            let itemsHtml = day.data.map(h => `
+                <div class="history-item">
+                    <span>${h.done ? '✅' : '❌'} ${h.name}</span>
+                    <span style="color:#666">${h.completedAt || '--:--'}</span>
+                </div>
+            `).join('');
+
+            dayDiv.innerHTML = `
+                <div class="history-date">${day.date}</div>
+                <div>${itemsHtml}</div>
+            `;
+            container.appendChild(dayDiv);
+        });
+
+        function clearHistory() {
+            if(confirm("Apagar todo o histórico?")) {
+                localStorage.removeItem('habits_logs');
+                location.reload();
+            }
+        }
+    </script>
+</body>
+</html>
